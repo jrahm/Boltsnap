@@ -1,0 +1,18 @@
+The versioning in Boltsnap is a three numbered versioning system e.g. 0.02.04
+
+The last number, or least significant number is the day of the last relatively
+major revision.
+
+The second to last number is the month of the last relatively major revision where
+January=1, February=2 ...
+
+The most significant number is the number of the last release.
+
+If new year's day occurs before a release, then the second number is the current month
+plus 12. If new years day comes twice before a release, then the second number is the
+current month plus 24 and so on and so fourth.
+
+After a major release, the second number resets to 1.
+
+So version 5.14.22 would have been released on February 22nd and it would have been
+over a full calendar year since version 4 was released.

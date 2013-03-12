@@ -1,0 +1,75 @@
+
+Play Command Protocol
+=====================
+
+The purpose of this document is to describe both the C to C binary
+protocol and the JavaScript to C XML protocol of the play command
+packet.
+
+The Layout of the Command as of Version 0.02.04
+-----------------------------------------------
+	
+	|
+	| The play command is a command which is simply
+	| a string of the filename to play.
+	|
+
+	Binary Version
+	--------------
+
+		| The binary version of the command is very simple
+		| all it is is a length and a sequence of bytes that
+		| makeup the string.
+		|
+		| The layout of the packet is as follows:
+
+		+-------------------+----------+--------+
+		| String Length     | String   | ...    |
+		|   32-bit unsigned |     .... |    ... |
+		+-------------------+----------+--------+
+
+	C Struct
+	--------
+
+	| /*
+	|  * Struct that represents a
+	|  * play command in Impulse.
+	|  */
+	| typedef struct play_command {
+	| 	/* length of the string following */
+	| 	uint32_t str_length;
+	| 	
+	| 	/* the name of the file to play.
+	| 		this should arrive as null and
+	| 		this struct will be followed by the
+	| 		string. */
+	| 	char* filename;
+	| } play_command_t;
+
+
+
+		
+Useful functions for the command:
+--------------------------------
+
+	1.) void* play_command_read( struct boltsnap_command*, int )
+
+		| returns a newly allocated play_comamnd from the file
+		| descriptor fd. The void* from this function can be safely
+		| caseted to a play_command* and free'd using free(void*)
+
+	2.) int play_command_dispatch( struct boltsnap_command* )
+	
+		| dispatches a play command. Returns 0 on succes
+		| on failure will return a non 0 number
+
+	3.) int play_command_destroy( void* )
+		
+		| frees the members of a play command from
+		| memory. Returns 0 on success, otherwise a
+		| non 0 number is returned.
+
+	4.) struct play_command* play_command_new( const char* )
+		
+		| Allocates a new play command using the string parameter
+		| as the member of the filename

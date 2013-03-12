@@ -1,0 +1,13 @@
+#!/bin/bash
+
+if [[ ! $DAEMON_NAME ]] ; then
+	DAEMON_NAME="boltsnapd"
+fi
+
+if [[ ! $GENCGI_RENAME ]] ; then
+	GENCGI_RENAME="boltgen.cgi"
+fi
+
+sudo cp -v $DAEMON_NAME /usr/bin/
+cp -rvf public_html $HOME/
+

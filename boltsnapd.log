@@ -1,0 +1,36 @@
+Testing log!
+
+1.) 0.)<main>
+
+2.)   <init>
+2.)  </init>
+
+     [INFO] - daemon.c:144 main$  Opening socket on address /tmp/boltsnap_local.sock
+     [DEBUG]- boltsnap.c:57 __start_serv_unix$  Creating socket on path: /tmp/boltsnap_local.sock (len=26)
+Testing log!
+
+1.) 0.)<main>
+
+2.)   <init>
+2.)  </init>
+
+     [INFO] - daemon.c:144 main$  Opening socket on address /tmp/boltsnap_local.sock
+     [DEBUG]- boltsnap.c:57 __start_serv_unix$  Creating socket on path: /tmp/boltsnap_local.sock (len=26)
+Testing log!
+
+1.) 0.)<main>
+
+2.)   <init>
+2.)  </init>
+
+     [INFO] - daemon.c:144 main$  Opening socket on address /tmp/boltsnap_local.sock
+     [DEBUG]- boltsnap.c:57 __start_serv_unix$  Creating socket on path: /tmp/boltsnap_local.sock (len=26)
+Testing log!
+
+1.) 0.)<main>
+
+2.)   <init>
+2.)  </init>
+
+     [INFO] - daemon.c:144 main$  Opening socket on address /tmp/boltsnap_local.sock
+     [DEBUG]- boltsnap.c:57 __start_serv_unix$  Creating socket on path: /tmp/boltsnap_local.sock (len=26)
