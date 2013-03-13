@@ -12,7 +12,8 @@ QUERYDB_BINARY=$(OUTDIR)/bin/querydb
 
 ARCHIVE=libmediaload.a
 
-all: | init mediaload_all 
+all: init 
+	$(MAKE) mediaload_all $(MFLAGS) 
 
 mediaload.o: mediaload.c mediaload.h
 	$(CC) $(CFLAGS) $(INCLUDE) -c mediaload.c

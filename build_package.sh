@@ -1,19 +1,22 @@
 #!/bin/bash
+set -e
 
+export BUILD_DIR=$(realpath ./build)
+export DAEMON_NAME="boltsnapd"
+export SOURCE_DIR="src"
 
 if [ ! $1 ] ; then
 	ARCH=$(uname -m)
-	make
+	make $@
 else
 	ARCH=$1
-	make $ARCH
+	make $@
 fi
 
-export DAEMON_NAME="boltsnapd"
+DAEMON="$BUILD_DIR/${ARCH}/$DAEMON_NAME"
 
-DAEMON="${ARCH}/$DAEMON_NAME"
-GENCGI="boltgen.cgi.py"
-PUBLIC_HTML_DIR="public_html"
+GENCGI="$SOURCE_DIR/boltgen.cgi.py"
+PUBLIC_HTML_DIR="$SOURCE_DIR/public_html"
 
 export GENCGI_RENAME="boltgen.cgi"
 export INSTALL_SCRIPT="install.sh"
@@ -24,18 +27,21 @@ if [[ $ec -ne 0 ]] ; then
 	echo "Make failed! Exit code $ec"
 fi
 
-package=${ARCH}_package
+package=$BUILD_DIR/${ARCH}_package
+export BUILD_BIN_DIR="$package/boltsnap/bin"
+export BUILD_PUBLIC_HTML="$package/public_html"
 
-binaries=$(find . | grep "${ARCH}/bin")
+binaries=$(find $BUILD_DIR/$ARCH | grep "bin")
 
-cp -rv $PUBLIC_HTML_DIR $package/
+mkdir -p $package
+cp -rv $PUBLIC_HTML_DIR $BUILD_PUBLIC_HTML
 
-mkdir -p $package/$PUBLIC_HTML_DIR/cgi-bin/bin
-mkdir -p $package/boltsnap/bin
+mkdir -p $BUILD_PUBLIC_HTML/cgi-bin/bin
+mkdir -p $BUILD_BIN_DIR
 
-cp -v $binaries $package/boltsnap/bin
+cp -v $binaries $BUILD_BIN_DIR || true
 cp -v $DAEMON $package/
-cp -v $GENCGI $package/$PUBLIC_HTML_DIR/cgi-bin/$GENCGI_RENAME
+cp -v $GENCGI $BUILD_PUBLIC_HTML/cgi-bin/$GENCGI_RENAME
 cp -v $INSTALL_SCRIPT $package/
 
 tar -cv $package | gzip > $package.tgz
